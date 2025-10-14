@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  PersonManager
+
+  Created by Amro Sous on 13/10/2025.
+  
+*/
+
+"person_list_view_controller.header_view.filter_placeholder.title" = "Filter";
+
+"person_list_view_controller.footer_view.selected_item_label.title" = "Selected Item:";
+
+"person_list_view_controller.content_view.person_table.name_column.title" = "Name";
+"person_list_view_controller.content_view.person_table.id_column.title" = "ID";
+"person_list_view_controller.content_view.person_table.symbol_column.title" = "Description Image";
+"person_list_view_controller.content_view.person_table.star_column.title" = "Starred";
+"person_list_view_controller.content_view.person_table.delete_alert.message_text" = "Delete Person";
+"person_list_view_controller.content_view.person_table.delete_alert.informative_text" = "Are you sure you want to delete this person?";
+"person_list_view_controller.content_view.person_table.delete_alert.delete_button.title" = "Delete";
+"person_list_view_controller.content_view.person_table.delete_alert.cancel_button.title" = "Cancel";
+
+"add_person_view_controller.add_person_view.symbol_popup.person.title" = "Person";
+"add_person_view_controller.add_person_view.symbol_popup.tree.title" = "Tree";
+"add_person_view_controller.add_person_view.symbol_popup.car.title" = "Car";
