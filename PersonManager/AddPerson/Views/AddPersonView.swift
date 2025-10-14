@@ -76,7 +76,8 @@ class AddPersonView: NSView {
     // MARK: - Private functions
     
     private func initViews() {
-        addButton.isEnabled = !nameTextField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        addButton.isEnabled = !nameTextField.stringValue.trimmingCharacters(
+            in: .whitespacesAndNewlines).isEmpty
         progressIndicator.isHidden = true
         progressIndicator.isDisplayedWhenStopped = false
         initSymbolPopUp()

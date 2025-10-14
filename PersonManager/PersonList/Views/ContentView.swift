@@ -27,7 +27,7 @@ class ContentView: NSView {
     
     private var visiblePersons: [Person] = []
     private var selectedPersonID: UUID?
-    private lazy var tableMenu: NSMenu = makeTableMenu()
+    private lazy var tableMenu: NSMenu = initTableMenu()
     
     // MARK: - Life Cycle
     
@@ -43,7 +43,7 @@ class ContentView: NSView {
         }
         switch keyCode {
         case .delete, .deleteForward:
-            let alert = makeDeleteAlert()
+            let alert = initDeleteAlert()
             if alert.runModal() == .alertFirstButtonReturn {
                 deleteSelectedRow()
             }
@@ -72,7 +72,7 @@ class ContentView: NSView {
     
     // MARK: - Private functions
     
-    private func makeTableMenu() -> NSMenu {
+    private func initTableMenu() -> NSMenu {
         let menu = NSMenu()
         let delete = NSMenuItem(
             title: LocalizationKey.tableMenuDeleteButtonTitle.stringValue,
@@ -92,7 +92,7 @@ class ContentView: NSView {
         initTableColumns()
         personTable.columnAutoresizingStyle = .uniformColumnAutoresizingStyle
         personTable.sizeToFit()
-        personTable.autosaveName = UserDefaultsKeys.personsTable
+        personTable.autosaveName = UserDefaultsKeys.personsTable.rawValue
         personTable.autosaveTableColumns = true
     }
     
@@ -122,28 +122,27 @@ class ContentView: NSView {
         return column
     }
     
-    private func initCellView(cell: NSTableCellView, inColumn column: PersonTableColumns, withData person: Person) -> NSView? {
+    private func initCellView(cell: NSTableCellView, inColumn column: PersonTableColumns,
+                              withData person: Person) -> NSView? {
         switch column {
         case .name:
             cell.textField?.stringValue = person.name
             cell.textField?.lineBreakMode = .byTruncatingTail
             cell.objectValue = person
-
         case .id:
             cell.textField?.stringValue = person.id.uuidString
             cell.textField?.lineBreakMode = .byTruncatingTail
-            
         case .symbol:
             cell.imageView?.image = NSImage(systemSymbolName: person.symbol.rawValue, accessibilityDescription: nil)
-            
         case .star:
-            cell.imageView?.image = NSImage(systemSymbolName: person.starred ? "star.fill" : "star", accessibilityDescription: nil)    // use enum
+            cell.imageView?.image = NSImage(
+                systemSymbolName: person.starred ? SFSymbol.starFill.rawValue : SFSymbol.star.rawValue,
+                accessibilityDescription: nil)
         }
-        
         return cell
     }
     
-    private func makeDeleteAlert() -> NSAlert {
+    private func initDeleteAlert() -> NSAlert {
         let alert = NSAlert()
         alert.messageText = LocalizationKey.deleteAlertMessageText.stringValue
         alert.informativeText = LocalizationKey.deleteAlertInformativeText.stringValue

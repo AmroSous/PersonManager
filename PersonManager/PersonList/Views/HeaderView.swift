@@ -8,9 +8,9 @@
 import Cocoa
 
 protocol HeaderViewDelegate: AnyObject {
-    func filterTextDidChange(_ source: HeaderView, text: String)
-    func addPersonDidClicked(_ source: HeaderView)
-    func appInfoDidClicked(_ source: HeaderView, anchor: NSButton)
+    func filterTextDidChange(_ sender: HeaderView, text: String)
+    func addPersonDidClicked(_ sender: HeaderView)
+    func appInfoDidClicked(_ sender: HeaderView, anchor: NSButton)
 }
 
 private struct UIConfigs {

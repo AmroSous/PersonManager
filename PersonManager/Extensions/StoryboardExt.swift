@@ -16,10 +16,8 @@ extension NSStoryboard {
         return vc
     }
 
-    func instantiate<T: NSViewController>(
-        _ type: T.Type,
-        creator: @escaping (NSCoder) -> T?
-    ) -> T {
+    func instantiate<T: NSViewController>(_ type: T.Type,
+                                          creator: @escaping (NSCoder) -> T?) -> T {
         let id = NSStoryboard.SceneIdentifier(String(describing: T.self))
         return instantiateController(identifier: id, creator: creator)
     }

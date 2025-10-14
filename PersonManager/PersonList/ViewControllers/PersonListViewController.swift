@@ -29,7 +29,7 @@ class PersonListViewController: NSViewController {
     private lazy var appInfoPopover: NSPopover = {
         let popover = NSPopover()
         popover.behavior = .transient
-        popover.contentViewController = makeAppInfoPopoverViewController()
+        popover.contentViewController = createAppInfoPopoverViewController()
         return popover
     }()
     
@@ -47,7 +47,7 @@ class PersonListViewController: NSViewController {
     
     // MARK: - Private functions
     
-    private func makeAppInfoPopoverViewController() -> NSViewController {
+    private func createAppInfoPopoverViewController() -> NSViewController {
         let vc = NSViewController()
         vc.view = NSView(frame: .zero)
         
@@ -95,7 +95,7 @@ extension PersonListViewController: HeaderViewDelegate {
     }
     
     func appInfoDidClicked(_ sender: HeaderView, anchor: NSButton) {
-        if appInfoPopover.isShown {
+        if appInfoPopover.isShown { // guard
             appInfoPopover.performClose(anchor)
             return
         }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Person: Codable, Hashable, Identifiable {
+struct Person: Codable, Equatable, Identifiable {
     
     // MARK: - Public properties
     

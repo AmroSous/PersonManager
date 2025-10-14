@@ -14,14 +14,16 @@ final class SessionManager: SessionManagerProtocol {
     func storePersonList(_ personList: [Person]) {
         do {
             let data = try JSONEncoder().encode(personList)
-            UserDefaults.standard.set(data, forKey: UserDefaultsKeys.personList)
+            UserDefaults.standard.set(data, forKey: UserDefaultsKeys.personList.rawValue)
         } catch {
             assertionFailure("Failed to encode people: \(error)")
         }
     }
         
     func loadPersonList() -> [Person] {
-        guard let data = UserDefaults.standard.data(forKey: UserDefaultsKeys.personList) else { return [] }
+        guard let data = UserDefaults.standard.data(forKey: UserDefaultsKeys.personList.rawValue) else {
+            return []
+        }
         do {
             return try JSONDecoder().decode([Person].self, from: data)
         } catch {

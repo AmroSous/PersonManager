@@ -10,6 +10,8 @@ import Cocoa
 enum Storyboard: String {
     case main = "Main"
 
+    // MARK: - Public properties
+    
     var instance: NSStoryboard {
         NSStoryboard(name: NSStoryboard.Name(rawValue), bundle: nil)
     }

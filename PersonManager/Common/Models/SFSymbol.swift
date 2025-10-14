@@ -9,4 +9,6 @@ enum SFSymbol: String, CaseIterable, Codable {
     case person = "person.fill"
     case tree = "tree.fill"
     case car = "car.side.fill"
+    case starFill = "star.fill"
+    case star = "star"
 }
