@@ -13,10 +13,11 @@ enum PersonTableColumns: String, CaseIterable {
     case symbol
     case star
     
+    // MARK: - Public properties
+    
     var id: NSUserInterfaceItemIdentifier {
         return .init(self.rawValue)
     }
-    
     var title: String {
         switch self {
         case .name:
@@ -29,7 +30,6 @@ enum PersonTableColumns: String, CaseIterable {
             return LocalizationKey.starColumnHeader.stringValue
         }
     }
-    
     var sizing: (min: CGFloat, max: CGFloat?) {
         switch self {
         case .name:
@@ -42,7 +42,6 @@ enum PersonTableColumns: String, CaseIterable {
             return (40, 70)
         }
     }
-    
     var resizingMask: NSTableColumn.ResizingOptions {
         switch self {
         case .name:
@@ -53,19 +52,6 @@ enum PersonTableColumns: String, CaseIterable {
             return []
         case .star:
             return []
-        }
-    }
-    
-    var cellId: NSUserInterfaceItemIdentifier {
-        switch self {
-        case .name:
-            return .init("PersonNameCell")
-        case .id:
-            return .init("PersonIDCell")
-        case .symbol:
-            return .init("PersonSymbolCell")
-        case .star:
-            return .init("PersonStarCell")
         }
     }
 }

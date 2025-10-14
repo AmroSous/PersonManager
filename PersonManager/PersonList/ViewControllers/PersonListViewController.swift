@@ -26,7 +26,6 @@ class PersonListViewController: NSViewController {
     // MARK: - Private properties
     
     private var viewModel = PersonListViewModel(sessionManager: SessionManager())
-    
     private lazy var appInfoPopover: NSPopover = {
         let popover = NSPopover()
         popover.behavior = .transient
@@ -76,7 +75,7 @@ class PersonListViewController: NSViewController {
 }
 
 extension PersonListViewController: AddPersonViewControllerDelegate {
-    func didAddPerson(_ source: AddPersonViewController, withName name: String, symbol: SFSymbol) {
+    func didAddPerson(_ sender: AddPersonViewController, withName name: String, symbol: SFSymbol) {
         let person = Person(name: name, symbol: symbol)
         viewModel.addPerson(person)
         contentView.updateTableItems(items: viewModel.filteredPersons)
@@ -84,18 +83,18 @@ extension PersonListViewController: AddPersonViewControllerDelegate {
 }
 
 extension PersonListViewController: HeaderViewDelegate {
-    func filterTextDidChange(_ source: HeaderView, text: String) {
-        viewModel.filterPersons(filterText: text)
+    func filterTextDidChange(_ sender: HeaderView, text: String) {
+        viewModel.setFilterText(filterText: text)
         contentView.updateTableItems(items: viewModel.filteredPersons)
     }
     
-    func addPersonDidClicked(_ source: HeaderView) {
+    func addPersonDidClicked(_ sender: HeaderView) {
         let vc: AddPersonViewController = Storyboard.main.instance.instantiate(AddPersonViewController.self)
         vc.delegate = self
         presentAsSheet(vc)
     }
     
-    func appInfoDidClicked(_ source: HeaderView, anchor: NSButton) {
+    func appInfoDidClicked(_ sender: HeaderView, anchor: NSButton) {
         if appInfoPopover.isShown {
             appInfoPopover.performClose(anchor)
             return
@@ -105,17 +104,17 @@ extension PersonListViewController: HeaderViewDelegate {
 }
 
 extension PersonListViewController: ContentViewDelegate {
-    func didToggleStarPerson(_ source: ContentView, person: Person) {
+    func didToggleStarPerson(_ sender: ContentView, person: Person) {
         viewModel.toggleStarPerson(person)
-        contentView.updateTableItems(items: viewModel.filteredPersons, withRefreshTable: false)
+        contentView.updateTableItems(items: viewModel.filteredPersons, shouldReloadData: false)
     }
     
-    func didDeletePerson(_ source: ContentView, person: Person) {
+    func didDeletePerson(_ sender: ContentView, person: Person) {
         viewModel.removePerson(person)
         contentView.updateTableItems(items: viewModel.filteredPersons)
     }
     
-    func didSelectPerson(_ source: ContentView, person: Person?) {
+    func didSelectPerson(_ sender: ContentView, person: Person?) {
         footerView.updateSelectedItem(to: person)
     }
 }

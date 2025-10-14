@@ -9,20 +9,23 @@
 import Foundation
 
 struct TestData {
-    static let personName = "AM123RR123xx"
-    static let personIDList: [UUID] = [
-        .init(), .init(), .init(), .init(), .init()
+    
+    // MARK: - Public properties
+    
+    static let personNames = [
+        "Amro11xx", "Sous32xh"
     ]
     static let personList: [Person] = [
-        .init(id: personIDList[0], name: "Amro", symbol: SFSymbol.person),
-        .init(id: personIDList[1], name: "Ali", symbol: SFSymbol.car),
-        .init(id: personIDList[2], name: "Mohammad", symbol: SFSymbol.person),
-        .init(id: personIDList[3], name: "Anas", symbol: SFSymbol.tree),
-        .init(id: personIDList[4], name: "Hassan", symbol: SFSymbol.car),
+        .init(name: "Amro", symbol: SFSymbol.person),
+        .init(name: "Ali", symbol: SFSymbol.car),
+        .init(name: "Mohammad", symbol: SFSymbol.person),
+        .init(name: "Anas", symbol: SFSymbol.tree),
+        .init(name: "Hassan", symbol: SFSymbol.car)
     ]
-    static let personListFilterText = "hA"
-    static let personListFilteredWithName: [Person] = [
-        .init(id: personIDList[2], name: "Mohammad", symbol: SFSymbol.person),
-        .init(id: personIDList[4], name: "Hassan", symbol: SFSymbol.car),
+    static let textToFilterAll = "hal"
+    static let textToFilterPart = "hA"
+    static let textToFilterNone = ""
+    static let partialFilteredPersonList: [Person] = [
+        personList[2], personList[4]
     ]
 }

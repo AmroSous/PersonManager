@@ -37,22 +37,22 @@ class PersonListViewModel {
         if !persons.contains(where: { $0.id == person.id }) {
             persons.append(person)
         }
-        filterPersons(filterText: filterText)
+        setFilterText(filterText: filterText)
     }
     
     func removePerson(_ person: Person) {
         persons.removeAll { $0.id == person.id }
-        filterPersons(filterText: filterText)
+        setFilterText(filterText: filterText)
     }
     
     func toggleStarPerson(_ person: Person) {
         if let index = persons.firstIndex(where: { $0.id == person.id }) {
             persons[index].starred.toggle()
         }
-        filterPersons(filterText: filterText)
+        setFilterText(filterText: filterText)
     }
-    
-    func filterPersons(filterText: String) {
+
+    func setFilterText(filterText: String) {
         self.filterText = filterText
     }
     

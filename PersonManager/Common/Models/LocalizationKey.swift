@@ -21,14 +21,11 @@ enum LocalizationKey: String {
     case personSymbolDisplayTitle = "add_person_view_controller.add_person_view.symbol_popup.person.title"
     case treeSymbolDisplayTitle = "add_person_view_controller.add_person_view.symbol_popup.tree.title"
     case carSymbolDisplayTitle = "add_person_view_controller.add_person_view.symbol_popup.car.title"
+    case tableMenuDeleteButtonTitle = "person_list_view_controller.content_view.person_table.table_menu.delete_button.title"
+    
+    // MARK: - Public properties
     
     var stringValue: String {
         return rawValue.localized
-    }
-}
-
-extension String {
-    var localized: String {
-        return NSLocalizedString(self, comment: "")
     }
 }

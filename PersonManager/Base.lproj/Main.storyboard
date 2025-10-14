@@ -807,7 +807,7 @@
                                                                                     </textFieldCell>
                                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                     <prototypeCellViews>
-                                                                                        <tableCellView identifier="PersonNameCell" id="SUV-H1-PYZ">
+                                                                                        <tableCellView identifier="name" id="SUV-H1-PYZ">
                                                                                             <rect key="frame" x="8" y="0.0" width="114" height="17"/>
                                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                             <subviews>
@@ -839,7 +839,7 @@
                                                                                     </textFieldCell>
                                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                     <prototypeCellViews>
-                                                                                        <tableCellView identifier="PersonIDCell" id="WB1-6I-PjG">
+                                                                                        <tableCellView identifier="id" id="WB1-6I-PjG">
                                                                                             <rect key="frame" x="139" y="0.0" width="453" height="17"/>
                                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                             <subviews>
@@ -867,7 +867,7 @@
                                                                                     <imageCell key="dataCell" refusesFirstResponder="YES" alignment="left" identifier="PersonSymbolCell" imageScaling="proportionallyDown" id="r9Q-G5-YY6"/>
                                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                     <prototypeCellViews>
-                                                                                        <tableCellView identifier="PersonSymbolCell" id="LKH-bg-qsN">
+                                                                                        <tableCellView identifier="symbol" id="LKH-bg-qsN">
                                                                                             <rect key="frame" x="609" y="0.0" width="64" height="17"/>
                                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                             <subviews>
@@ -891,7 +891,7 @@
                                                                                     <imageCell key="dataCell" refusesFirstResponder="YES" alignment="left" identifier="PersonStarCell" imageScaling="proportionallyDown" id="YbH-YB-o79"/>
                                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                     <prototypeCellViews>
-                                                                                        <tableCellView identifier="PersonStarCell" id="3sM-o1-vRc">
+                                                                                        <tableCellView identifier="star" id="3sM-o1-vRc">
                                                                                             <rect key="frame" x="690" y="0.0" width="61" height="17"/>
                                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                             <subviews>
@@ -911,7 +911,7 @@
                                                                         </tableView>
                                                                     </subviews>
                                                                 </clipView>
-                                                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="blJ-Fg-w9M">
+                                                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.94444444444444442" horizontal="YES" id="blJ-Fg-w9M">
                                                                     <rect key="frame" x="1" y="596" width="598" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </scroller>

@@ -12,6 +12,10 @@ protocol AddPersonViewDelegate: AnyObject {
     func didRequestCancelAddPerson(_ sender: AddPersonView)
 }
 
+private struct UIConfigs {
+    static let popUpSymbolConfiguration: NSImage.SymbolConfiguration = .init(pointSize: 14, weight: .regular)
+}
+
 class AddPersonView: NSView {
 
     // MARK: - Public properties
@@ -58,7 +62,11 @@ class AddPersonView: NSView {
         addButton.isEnabled = !isLoading && !trimmedName().isEmpty
         nameTextField.isEditable = !isLoading
         progressIndicator.isHidden = !isLoading
-        isLoading ? progressIndicator.startAnimation(self) : progressIndicator.stopAnimation(self)
+        if isLoading {
+            progressIndicator.startAnimation(self)
+        } else {
+            progressIndicator.stopAnimation(self)
+        }
     }
     
     func resetInputs() {
@@ -78,7 +86,8 @@ class AddPersonView: NSView {
         symbolPopUp.removeAllItems()
         PersonSymbol.allCases.forEach {
             let item = NSMenuItem(title: $0.displayTitle, action: nil, keyEquivalent: "")
-            item.image = NSImage(systemSymbolName: $0.sfSymbol.rawValue, accessibilityDescription: nil)?.withSymbolConfiguration(.init(pointSize: 14, weight: .regular))
+            item.image = NSImage(systemSymbolName: $0.sfSymbol.rawValue, accessibilityDescription: nil)?
+                .withSymbolConfiguration(UIConfigs.popUpSymbolConfiguration)
             item.representedObject = $0.sfSymbol
             symbolPopUp.menu?.addItem(item)
         }
@@ -89,9 +98,8 @@ class AddPersonView: NSView {
     }
     
     private func selectedSymbol() -> SFSymbol {
-        return symbolPopUp.selectedItem?.representedObject as! SFSymbol
+        return symbolPopUp.selectedItem?.representedObject as? SFSymbol ?? .person
     }
-    
 }
 
 extension AddPersonView: NSTextFieldDelegate {

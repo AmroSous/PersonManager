@@ -10,6 +10,8 @@ enum PersonSymbol: CaseIterable {
     case tree
     case car
     
+    // MARK: - Public properties
+    
     var displayTitle: String {
         switch self {
         case .person:
@@ -28,6 +30,4 @@ enum PersonSymbol: CaseIterable {
         case .car: .car
         }
     }
-    
-    static let s = "My name is Amro Sous and I am a software engineer at Apple. I am passionate about building innovative products that make a positive impact on people's lives. I am currently working on a project that aims to help people manage their personal information and make it easier to share with others. I am excited about the opportunity to bring this project to life and make a difference in the world. Thank you for considering my application. Sincerely, Amro Sous [Your Contact Information]"
 }

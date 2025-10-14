@@ -25,19 +25,33 @@ class ContentView: NSView {
     
     // MARK: - Private properties
     
-    var visiblePersons: [Person] = []
-    
-    var selectedPersonID: UUID?
-    
-    private lazy var rowMenu: NSMenu = makeRowMenu()
+    private var visiblePersons: [Person] = []
+    private var selectedPersonID: UUID?
+    private lazy var tableMenu: NSMenu = makeTableMenu()
     
     // MARK: - Life Cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        configureTable()
+        initTable()
     }
     
+    override func keyDown(with event: NSEvent) {
+        guard let keyCode = KeyCode(rawValue: event.keyCode) else {
+            super.keyDown(with: event)
+            return
+        }
+        switch keyCode {
+        case .delete, .deleteForward:
+            let alert = makeDeleteAlert()
+            if alert.runModal() == .alertFirstButtonReturn {
+                deleteSelectedRow()
+            }
+        default:
+            super.keyDown(with: event)
+        }
+    }
+
     // MARK: - Public functions
     
     func reloadData() {
@@ -49,44 +63,30 @@ class ContentView: NSView {
         }
     }
     
-    func updateTableItems(items: [Person], withRefreshTable: Bool = true) {
+    func updateTableItems(items: [Person], shouldReloadData: Bool = true) {
         visiblePersons = items
-        if withRefreshTable {
+        if shouldReloadData {
             reloadData()
-        }
-    }
-    
-    override func keyDown(with event: NSEvent) {
-        guard let keyCode = KeyCode(rawValue: event.keyCode) else {
-            super.keyDown(with: event)
-            return
-        }
-        
-        switch keyCode {
-        case .delete, .deleteForward:
-            let alert = makeDeleteAlert()
-            if alert.runModal() == .alertFirstButtonReturn {
-                deleteSelectedRow()
-            }
-        default:
-            super.keyDown(with: event)
         }
     }
     
     // MARK: - Private functions
     
-    private func makeRowMenu() -> NSMenu {
+    private func makeTableMenu() -> NSMenu {
         let menu = NSMenu()
-        let delete = NSMenuItem(title: "Delete", action: #selector(deleteSelectedRow), keyEquivalent: "")
+        let delete = NSMenuItem(
+            title: LocalizationKey.tableMenuDeleteButtonTitle.stringValue,
+            action: #selector(deleteSelectedRow),
+            keyEquivalent: "")
         delete.target = self
         menu.addItem(delete)
         return menu
     }
     
-    private func configureTable() {
+    private func initTable() {
         personTable.delegate = self
         personTable.dataSource = self
-        personTable.menu = rowMenu
+        personTable.menu = tableMenu
         personTable.target = self
         personTable.action = #selector(tableRowClicked)
         initTableColumns()
@@ -111,7 +111,7 @@ class ContentView: NSView {
             .forEach(personTable.addTableColumn)
     }
     
-    func initColumn(_ col: PersonTableColumns) -> NSTableColumn {
+    private func initColumn(_ col: PersonTableColumns) -> NSTableColumn {
         let column = NSTableColumn(identifier: col.id)
         column.title = col.title
         column.minWidth = col.sizing.min
@@ -122,7 +122,7 @@ class ContentView: NSView {
         return column
     }
     
-    func initCellView(cell: NSTableCellView, inColumn column: PersonTableColumns, withData person: Person) -> NSView? {
+    private func initCellView(cell: NSTableCellView, inColumn column: PersonTableColumns, withData person: Person) -> NSView? {
         switch column {
         case .name:
             cell.textField?.stringValue = person.name
@@ -137,7 +137,7 @@ class ContentView: NSView {
             cell.imageView?.image = NSImage(systemSymbolName: person.symbol.rawValue, accessibilityDescription: nil)
             
         case .star:
-            cell.imageView?.image = NSImage(systemSymbolName: person.starred ? "star.fill" : "star", accessibilityDescription: nil)
+            cell.imageView?.image = NSImage(systemSymbolName: person.starred ? "star.fill" : "star", accessibilityDescription: nil)    // use enum
         }
         
         return cell
@@ -153,13 +153,15 @@ class ContentView: NSView {
         return alert
     }
     
-    @objc private func deleteSelectedRow() {
+    @objc
+    private func deleteSelectedRow() {
         let row = personTable.selectedRow
         guard let person = getPerson(atRow: row) else { return }
         delegate?.didDeletePerson(self, person: person)
     }
     
-    @objc private func tableRowClicked() {
+    @objc
+    private func tableRowClicked() {
         let row = personTable.selectedRow
         let col = personTable.clickedColumn
         guard row >= 0, col >= 0, let person = getPerson(atRow: row) else {
@@ -182,9 +184,10 @@ extension ContentView: NSTableViewDelegate {
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let columnRawValue = tableColumn?.identifier.rawValue else { return nil }
-        guard let column = PersonTableColumns(rawValue: columnRawValue) else { return nil }
-        guard let cell = tableView.makeView(withIdentifier: column.cellId, owner: nil) as? NSTableCellView else { return nil }
+        guard let columnRawValue = tableColumn?.identifier.rawValue,
+              let column = PersonTableColumns(rawValue: columnRawValue),
+              let cell = tableView.makeView(withIdentifier: column.id, owner: nil) as? NSTableCellView
+        else { return nil }
         return initCellView(cell: cell, inColumn: column, withData: visiblePersons[row])
     }
 }

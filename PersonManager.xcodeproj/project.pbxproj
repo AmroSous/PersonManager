@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8A1C561C2E9E34130007ACB6 /* ide_swiftlint.sh in Resources */ = {isa = PBXBuildFile; fileRef = 8A1C561B2E9E34130007ACB6 /* ide_swiftlint.sh */; };
+		8A1C561D2E9E34130007ACB6 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8A1C561A2E9E34130007ACB6 /* .swiftlint.yml */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		8A71FAD02E9534B200FA5DB2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8A1C561A2E9E34130007ACB6 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		8A1C561B2E9E34130007ACB6 /* ide_swiftlint.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ide_swiftlint.sh; sourceTree = "<group>"; };
 		8A71FABE2E9534B100FA5DB2 /* PersonManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A71FACF2E9534B200FA5DB2 /* PersonManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PersonManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A71FAD92E9534B200FA5DB2 /* PersonManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PersonManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +86,8 @@
 				8A71FAD22E9534B200FA5DB2 /* PersonManagerTests */,
 				8A71FADC2E9534B200FA5DB2 /* PersonManagerUITests */,
 				8A71FABF2E9534B100FA5DB2 /* Products */,
+				8A1C561A2E9E34130007ACB6 /* .swiftlint.yml */,
+				8A1C561B2E9E34130007ACB6 /* ide_swiftlint.sh */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +109,7 @@
 			buildConfigurationList = 8A71FAE32E9534B200FA5DB2 /* Build configuration list for PBXNativeTarget "PersonManager" */;
 			buildPhases = (
 				8A71FABA2E9534B100FA5DB2 /* Sources */,
+				8A1C561E2E9E34210007ACB6 /* ShellScript */,
 				8A71FABB2E9534B100FA5DB2 /* Frameworks */,
 				8A71FABC2E9534B100FA5DB2 /* Resources */,
 			);
@@ -213,6 +223,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1C561C2E9E34130007ACB6 /* ide_swiftlint.sh in Resources */,
+				8A1C561D2E9E34130007ACB6 /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +243,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8A1C561E2E9E34210007ACB6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n./ide_swiftlint.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8A71FABA2E9534B100FA5DB2 /* Sources */ = {
@@ -397,6 +430,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -423,6 +457,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;

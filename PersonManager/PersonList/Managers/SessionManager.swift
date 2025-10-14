@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class SessionManager : SessionManagerProtocol {
+final class SessionManager: SessionManagerProtocol {
     
     // MARK: - Public functions
     

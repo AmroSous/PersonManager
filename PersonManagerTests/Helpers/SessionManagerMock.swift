@@ -8,7 +8,12 @@
 @testable import PersonManager
 
 class SessionManagerMock: SessionManagerProtocol {
+    
+    // MARK: - Public properties
+    
     var storedPersonList: [Person] = []
+    
+    // MARK: - Public functions
     
     func storePersonList(_ personList: [PersonManager.Person]) {
         storedPersonList = personList

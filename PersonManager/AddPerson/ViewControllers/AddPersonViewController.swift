@@ -33,6 +33,7 @@ class AddPersonViewController: NSViewController {
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] event in
             guard let self else { return event }
             if event.keyCode == KeyCode.escape.rawValue {
@@ -50,14 +51,14 @@ class AddPersonViewController: NSViewController {
     
     // MARK: - Private functions
     
-    func removeEventMonitor() {
+    private func removeEventMonitor() {
         if let monitor = eventMonitor {
             NSEvent.removeMonitor(monitor)
             eventMonitor = nil
         }
     }
     
-    func cancelAddPerson() {
+    private func cancelAddPerson() {
         addPersonView.setLoading(false)
         addPersonTask?.cancel()
         dismiss(nil)
@@ -65,7 +66,7 @@ class AddPersonViewController: NSViewController {
 }
 
 extension AddPersonViewController: AddPersonViewDelegate {
-    func didRequestAddPerson(_ source: AddPersonView, withName name: String, symbol: SFSymbol) {
+    func didRequestAddPerson(_ sender: AddPersonView, withName name: String, symbol: SFSymbol) {
         addPersonView.setLoading(true)
         addPersonTask = Task { [weak self] in
             do {
@@ -88,7 +89,7 @@ extension AddPersonViewController: AddPersonViewDelegate {
         }
     }
     
-    func didRequestCancelAddPerson(_ source: AddPersonView) {
+    func didRequestCancelAddPerson(_ sender: AddPersonView) {
         cancelAddPerson()
     }
 }

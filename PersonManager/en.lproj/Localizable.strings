@@ -18,6 +18,7 @@
 "person_list_view_controller.content_view.person_table.delete_alert.informative_text" = "Are you sure you want to delete this person?";
 "person_list_view_controller.content_view.person_table.delete_alert.delete_button.title" = "Delete";
 "person_list_view_controller.content_view.person_table.delete_alert.cancel_button.title" = "Cancel";
+"person_list_view_controller.content_view.person_table.table_menu.delete_button.title" = "Delete";
 
 "add_person_view_controller.add_person_view.symbol_popup.person.title" = "Person";
 "add_person_view_controller.add_person_view.symbol_popup.tree.title" = "Tree";

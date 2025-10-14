@@ -30,48 +30,86 @@ final class PersonListViewModelTests: XCTestCase {
     
     // MARK: - Tests
     
-    func testAddPersonAppendsAndAppearsInFiltered() throws {
-        let person = Person(name: TestData.personName, symbol: SFSymbol.car)
+    func testAddPersonWhenNewID() {
+        let person = Person(name: TestData.personNames[0], symbol: SFSymbol.car)
+        XCTAssertFalse(viewModel.filteredPersons.contains(where: { $0.id == person.id }))
         viewModel.addPerson(person)
-        XCTAssertEqual(viewModel.filteredPersons, [person])
+        XCTAssertTrue(viewModel.filteredPersons.contains(where: { $0.id == person.id }))
     }
     
-    func testAddPersonDoesNotDuplicateSameID() throws {
-        let id = UUID()
-        let person1 = Person(id: id, name: TestData.personName, symbol: SFSymbol.car)
-        let person2 = Person(id: id, name: TestData.personName, symbol: SFSymbol.car)
+    func testAddPersonWhenDuplicateID() {
+        let person1 = Person(name: TestData.personNames[0], symbol: SFSymbol.car)
+        let person2 = Person(id: person1.id, name: TestData.personNames[1], symbol: SFSymbol.car)
         viewModel.addPerson(person1)
-        viewModel.addPerson(person2)
         XCTAssertEqual(viewModel.filteredPersons.count, 1)
-        XCTAssertEqual(viewModel.filteredPersons.first?.id, id)
+        viewModel.addPerson(person2)
+        XCTAssertEqual(viewModel.filteredPersons, [person1])
     }
     
-    func testRemovePersonRemovesAndDoesNotAppearInFiltered() throws {
-        let person = Person(name: TestData.personName, symbol: SFSymbol.car)
-        viewModel.addPerson(person)
-        viewModel.removePerson(person)
-        XCTAssertEqual(viewModel.filteredPersons, [])
-    }
-    
-    func testToggleStarPersonUpdatesStarred() throws {
-        let id = UUID()
-        let person = Person(id: id, name: TestData.personName, symbol: SFSymbol.car)
-        viewModel.addPerson(person)
-        viewModel.toggleStarPerson(person)
-        let personElement = viewModel.filteredPersons.first(where: { $0.id == id })
-        XCTAssertNotNil(personElement)
-        XCTAssertTrue(personElement!.starred)
-    }
-    
-    func testFilterPersonsByNameIgnoringCase() throws {
+    func testRemovePersonWhenPersonExist() {
         for person in TestData.personList {
             viewModel.addPerson(person)
         }
-        viewModel.filterPersons(filterText: TestData.personListFilterText)
-        XCTAssertEqual(viewModel.filteredPersons, TestData.personListFilteredWithName)
+        XCTAssertEqual(viewModel.filteredPersons.count, TestData.personList.count)
+        viewModel.removePerson(TestData.personList[0])
+        XCTAssertEqual(viewModel.filteredPersons.count, TestData.personList.count - 1)
+        XCTAssertFalse(viewModel.filteredPersons.contains(where: { $0.id == TestData.personList[0].id }))
     }
     
-    func testSavePersonListSavesInSessionManager() throws {
+    func testRemovePersonWhenPersonDoesNotExist() {
+        for person in TestData.personList {
+            viewModel.addPerson(person)
+        }
+        XCTAssertEqual(viewModel.filteredPersons.count, TestData.personList.count)
+        let personToRemove = Person(name: TestData.personNames[0], symbol: SFSymbol.car)
+        viewModel.removePerson(personToRemove)
+        XCTAssertEqual(viewModel.filteredPersons.count, TestData.personList.count)
+    }
+    
+    func testToggleStarPersonWhenStarredIsFalse() {
+        for person in TestData.personList {
+            viewModel.addPerson(person)
+        }
+        viewModel.toggleStarPerson(TestData.personList[0])
+        let toggledPerson = viewModel.filteredPersons.first(where: { $0.id == TestData.personList[0].id })
+        XCTAssertNotNil(toggledPerson)
+        XCTAssertTrue(toggledPerson!.starred)
+    }
+    
+    func testToggleStarPersonWhenStarredIsTrue() {
+        let person = Person(name: TestData.personNames[0], symbol: SFSymbol.car, starred: true)
+        viewModel.addPerson(person)
+        viewModel.toggleStarPerson(person)
+        let toggledPerson = viewModel.filteredPersons.first(where: { $0.id == person.id })
+        XCTAssertNotNil(toggledPerson)
+        XCTAssertFalse(toggledPerson!.starred)
+    }
+    
+    func testFilterPersonsByNameIgnoringCaseWithEmptyResults() {
+        for person in TestData.personList {
+            viewModel.addPerson(person)
+        }
+        viewModel.setFilterText(filterText: TestData.textToFilterAll)
+        XCTAssertTrue(viewModel.filteredPersons.isEmpty)
+    }
+    
+    func testFilterPersonsByNameIgnoringCaseWithAllDataReturned() {
+        for person in TestData.personList {
+            viewModel.addPerson(person)
+        }
+        viewModel.setFilterText(filterText: TestData.textToFilterNone)
+        XCTAssertEqual(viewModel.filteredPersons, TestData.personList)
+    }
+    
+    func testFilterPersonsByNameIgnoringCaseWithPartialDataReturned() {
+        for person in TestData.personList {
+            viewModel.addPerson(person)
+        }
+        viewModel.setFilterText(filterText: TestData.textToFilterPart)
+        XCTAssertEqual(viewModel.filteredPersons, TestData.partialFilteredPersonList)
+    }
+    
+    func testSavePersonListSavesInSessionManager() {
         for person in TestData.personList {
             viewModel.addPerson(person)
         }
